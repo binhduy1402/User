@@ -15,13 +15,10 @@ connectDB();
 app.use(express.json());
 app.use(cookieParser());
 
+// Allow access from everywhere
 app.use(cors({
-    origin: [
-        "http://localhost:3000",  // Local development URL
-        "https://fe-rfyq.onrender.com",  // Allow the frontend from Render
-        "https://www.binhduy1402.id.vn/" // New URL added
-    ],
-    credentials: true,  // Allow cookies to be sent across origins
+    origin: "*", // Allow requests from any origin
+    credentials: true, // Allow cookies and credentials
 }));
 
 app.use(bodyParser.json());
@@ -35,5 +32,5 @@ const Authentication = require('./api/Authentication/Auth.api');
 app.use('/auth', Authentication);
 
 app.listen(PORT, () => {
-    console.log('User management service is running');
+    console.log('User Management Service is running');
 });
