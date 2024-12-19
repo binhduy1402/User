@@ -2,12 +2,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const connectDB = require('./connection'); // Kết nối database
+const connectDB = require('./connection');
+const app = express();
 const cookieParser = require("cookie-parser");
 
 dotenv.config();
 
-const app = express();
 const PORT = process.env.PORT || 8070;
 
 // Kết nối database
@@ -19,15 +19,24 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 // Cấu hình CORS
-app.use(cors({
-    origin: "*", // Cho phép tất cả các nguồn
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Cho phép các phương thức HTTP
-    allowedHeaders: ["Content-Type", "Authorization"], // Cho phép các tiêu đề
-    credentials: true, // Hỗ trợ cookies
-}));
+const allowedOrigins = [
+    "http://localhost:3000",  // Local development
+    "https://fe-rfyq.onrender.com",  // Frontend Render
+    "https://www.binhduy1402.id.vn"  // Production domain
+];
 
-// Xử lý yêu cầu preflight (OPTIONS)
-app.options("*", cors());
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true, // Cho phép gửi cookies
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Các phương thức cho phép
+    allowedHeaders: ["Content-Type", "Authorization"], // Các tiêu đề cho phép
+}));
 
 // API User Management
 const UserManagement = require('./api/UserManagement/UserManagement.api');
