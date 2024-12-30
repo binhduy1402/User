@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 const allowedOrigins = [
     "http://localhost:3000",  // Local development
     "https://fe-eplh.onrender.com",  // Frontend Render
-    "https://binhduy1402.id.vn/"  // Production domain
+    "https://binhduy1402.id.vn"  // Production domain
 ];
 
 app.use(cors({
