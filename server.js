@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 // Cấu hình CORS
 const allowedOrigins = [
     "http://localhost:3000",  // Local development
-    "https://fe-rfyq.onrender.com",  // Frontend Render
+    "https://fe-eplh.onrender.com",  // Frontend Render
     "https://www.binhduy1402.id.vn"  // Production domain
 ];
 
